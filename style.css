@@ -1,0 +1,871 @@
+/*
+Theme Name: Allout Travel
+Theme URI: https://yourwebsite.com/
+Author: Your Name / Allout Travel
+Author URI: https://yourwebsite.com/
+Description: A clean, fresh, modern, and fast WordPress theme for the Allout Travel blog. Based on user requirements for a white and red (#dc493a) color scheme, Archivo Black and Montserrat typography, a hero section with a recent posts grid on the homepage, and YouTube integration.
+Version: 1.0.1
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: travel, blog, responsive-layout, custom-header, custom-logo, featured-images, accessibility-ready, one-column, two-columns
+Text Domain: allout-travel
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned.
+*/
+
+/* --------------------
+   Global Resets & Base Styles
+   -------------------- */
+body {
+    margin: 0;
+    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #333333;
+    background-color: #FFFFFF;
+    line-height: 1.7;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    color: #dc493a;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+a:hover,
+a:focus {
+    color: #b93b2f;
+    text-decoration: none;
+}
+
+/* Heading Hierarchy */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-top: 1.8em;
+    margin-bottom: 0.6em;
+    color: #222222;
+}
+
+/* Prominent headings using Archivo Black */
+.site-title,
+.hero-title,
+.entry-title-archive,
+.single-post .entry-title,
+.related-posts-title,
+.section-title,
+.comments-title,
+.comment-reply-title,
+.page-header .page-title {
+    font-family: 'Archivo Black', Impact, Charcoal, sans-serif;
+    font-weight: normal;
+}
+
+h1, .hero-title, .single-post .entry-title, .entry-title-archive, .page-header .page-title {
+    font-size: 2.8em;
+    margin-bottom: 0.4em;
+}
+
+h2, .section-title, .related-posts-title, .comments-title, .comment-reply-title {
+    font-size: 2.2em;
+}
+
+h3, .post-grid-item .entry-title, .youtube-video-item .video-item-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.4em; /* Consistent size for grid item titles */
+    font-weight: 700;
+}
+.author-bio .author-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.4em;
+    font-weight: 700;
+    color: #222222;
+}
+
+h4 { font-size: 1.3em; }
+h5 { font-size: 1.1em; }
+h6 { font-size: 1em; }
+
+/* --------------------
+   Utility Classes
+   -------------------- */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* --------------------
+   WordPress Core Alignments
+   -------------------- */
+.alignfull { margin-top: 1.5em; margin-bottom: 1.5em; max-width: 100vw; width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
+.alignwide { margin-top: 1.5em; margin-bottom: 1.5em; max-width: 1400px; margin-left: auto; margin-right: auto; }
+.alignfull img, .alignwide img { width: 100%; }
+figure.aligncenter { text-align: center; }
+figure.aligncenter img { margin-left: auto; margin-right: auto; }
+
+/* --------------------
+   Header Styles
+   -------------------- */
+
+.site-header { padding: 20px 0; background-color: #333333; border-bottom: none; position: relative; z-index: 100; }
+.site-branding {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* <<< THIS IS THE KEY CHANGE */
+}
+.site-logo-container { flex-shrink: 0; }
+.custom-logo-link img {
+    max-height: 120px;
+    width: auto; /* This is important for maintaining aspect ratio with max-width/max-height */
+    max-width: 300px; /* Example: Limit maximum width to 300px. Adjust as needed. */
+    display: block;
+}
+.site-title { margin:0; }
+.site-title a { font-size: 2em; color: #ffffff; text-decoration: none; font-weight: normal; }
+.site-description { font-family: 'Montserrat', sans-serif; font-size: 0.9em; color: #666666; margin-top: -2px; display: block; }
+
+/* Add this new rule for the logo if it's a custom logo image */
+.custom-logo-link img { /* This targets the image uploaded via the Customizer */
+    max-height: 60px; /* Or your desired max height - ensure this matches your existing logo styles if any */
+    width: auto;
+    display: block;
+}
+
+.header-social-icons a {
+    color: #444444; /* Darker grey for better visibility */
+    /* ... other styles ... */
+    transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.header-social-icons a svg {
+    width: 24px;
+    height: 24px;
+    /* ... other styles ... */
+}
+
+.header-social-icons a:hover,
+.header-social-icons a:focus {
+    color: #dc493a; /* Red accent on hover/focus */
+    transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+/* Main Navigation */
+.main-navigation { display: flex; align-items: center;}
+.main-navigation ul { list-style: none; margin: 0; padding: 0; display: flex; }
+.main-navigation li { margin-left: 25px; position: relative; }
+.main-navigation li:first-child { margin-left: 0; }
+.main-navigation a { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.95em; color: #ffffff; text-decoration: none; padding: 15px 0; display: block; letter-spacing: 0.5px; }
+.main-navigation a:hover, .main-navigation .current-menu-item > a, .main-navigation .current-menu-ancestor > a { color: #dc493a; text-decoration: none; }
+.main-navigation ul ul.sub-menu { display: none; position: absolute; top: 100%; left: -15px; background-color: #FFFFFF; border: 1px solid #F4F4F4; box-shadow: 0 5px 15px rgba(0,0,0,0.07); padding: 5px 0; min-width: 220px; z-index: 1000; border-radius: 0 0 3px 3px; }
+.main-navigation ul li:hover > ul.sub-menu { display: block; }
+.main-navigation ul ul.sub-menu li { margin-left: 0; width: 100%; }
+.main-navigation ul ul.sub-menu a { padding: 10px 20px; white-space: nowrap; font-size: 0.9em; font-weight: 600; }
+.main-navigation ul ul.sub-menu a:hover { background-color: #f9f9f9; }
+
+/* Mobile Menu Button (Hamburger) */
+.menu-toggle { display: none; background: transparent; border: none; padding: 10px; font-size: 1em; cursor: pointer; position: relative; width: 44px; height: 44px; border-radius: 3px; text-indent: -9999px; overflow: hidden; order: 1; }
+.menu-toggle::before, .menu-toggle::after, .menu-toggle span.icon-bar { content: ''; position: absolute; left: 50%; transform: translateX(-50%); height: 3px; width: 24px; background-color: #333333; border-radius: 1px; transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease; }
+.menu-toggle:hover::before, .menu-toggle:hover::after, .menu-toggle:hover span.icon-bar { background-color: #dc493a; }
+.menu-toggle::before { top: 12px; }
+.menu-toggle span.icon-bar { top: 20px; }
+.menu-toggle::after { top: 28px; }
+.menu-toggle[aria-expanded="true"]::before { transform: translateX(-50%) translateY(8px) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] span.icon-bar { opacity: 0; }
+.menu-toggle[aria-expanded="true"]::after { transform: translateX(-50%) translateY(-8px) rotate(-45deg); }
+
+/* This new container holds nav, search, and social icons */
+.header-right-area {
+    display: flex; /* This makes nav, search, and social icons align in a row */
+    align-items: center;
+}
+
+/* --- Header Search Form Styles --- */
+
+.header-search {
+    margin-left: 20px; /* Space between nav menu and search form */
+    margin-right: 15px; /* Space between search form and social icons */
+}
+
+.header-search .search-form {
+    position: relative; /* For positioning the icon button */
+    display: flex;
+}
+
+/* Hide the text label for the search field */
+.header-search .search-form label {
+    display: none;
+}
+
+.header-search .search-field {
+    background-color: #555555; /* Dark input background */
+    border: 1px solid #666666;
+    border-radius: 20px; /* Pill shape */
+    color: #FFFFFF;
+    padding: 6px 15px;
+    width: 200px; /* Adjust width as needed */
+    transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+.header-search .search-field:focus {
+    background-color: #666666;
+    width: 250px; /* Expand on focus */
+    outline: none;
+}
+.header-search .search-field::placeholder { /* Style placeholder text */
+    color: #aaaaaa;
+    opacity: 1;
+}
+
+/* Style the submit button as an icon */
+.header-search .search-submit {
+    background-color: transparent;
+    border: none;
+    color: #cccccc;
+    cursor: pointer;
+    padding: 0;
+    /* Position the icon button inside the text field */
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    /* Hiding the text 'Search' */
+    font-size: 0;
+    line-height: 0;
+    text-indent: -9999px;
+    /* Add an SVG icon */
+    width: 20px;
+    height: 20px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23cccccc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: color 0.2s ease;
+}
+.header-search .search-submit:hover {
+    color: #FFFFFF; /* You can't change SVG stroke color easily this way, but opacity can work */
+    opacity: 0.8;
+}
+/* --------------------
+   Content & Main Area
+   -------------------- */
+.site-content { padding-top: 30px; padding-bottom: 30px; }
+
+/* --------------------
+   Homepage: Hero Section Styles
+   -------------------- */
+.hero-section { background-color: #333; color: #FFFFFF; padding: 80px 20px; text-align: center; background-size: cover; background-position: center center; position: relative; min-height: 60vh; display: flex; align-items: center; justify-content: center; }
+.hero-section::before { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.45); }
+.hero-content { position: relative; z-index: 1; max-width: 800px; margin-left: auto; margin-right: auto; }
+.hero-title { font-size: 3em; margin-bottom: 0.4em; color: #FFFFFF; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
+.hero-subtitle { font-family: 'Montserrat', sans-serif; font-size: 1.3em; margin-bottom: 1.8em; color: #f0f0f0; font-weight: 400; line-height: 1.6; }
+
+/* --------------------
+   Homepage: Intro Text Section Styles
+   -------------------- */
+.intro-text-section {
+    padding: 40px 0 20px; /* Adjust padding as needed */
+    background-color: #FFFFFF; /* Or a very subtle off-white if preferred */
+}
+
+.intro-text-section .container {
+    max-width: 800px; /* Constrain width of intro text */
+}
+
+p.intro-text {
+    font-size: 1.2em; /* Or your preferred size */
+    line-height: 1.7;
+    color: #444444; /* Slightly softer than pure black */
+    margin-bottom: 0;
+}
+
+/* --------------------
+   Homepage: Latest Post Feature Section Styles
+   -------------------- */
+.latest-post-feature-section {
+    padding: 40px 0;
+    background-color: #f9f9f9; /* Slight background color to differentiate */
+    border-top: 1px solid #eaeaea;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.featured-latest-post {
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.featured-latest-post-image {
+    margin-bottom: 0; /* Remove space if image is directly above content box */
+}
+.featured-latest-post-image img {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    max-height: 500px; /* Control max height of featured image */
+    object-fit: cover;
+    display: block;
+}
+
+.featured-latest-post-content {
+    padding: 10px 35px 35px;
+}
+
+.featured-latest-post-content .entry-title {
+    /* Uses .section-title which is Archivo Black, H2 size by default.
+       You might want to make this slightly smaller if it's too dominant. */
+    font-size: 2em; /* Example adjustment */
+    margin-bottom: 10px;
+        margin-top: 0; 
+
+    text-align: left; /* Override text-center if .section-title usually is */
+}
+.featured-latest-post-content .entry-title a {
+    color: #222222;
+}
+.featured-latest-post-content .entry-title a:hover {
+    color: #dc493a;
+}
+
+
+.featured-latest-post-content .entry-meta {
+    font-size: 0.9em;
+    color: #777777;
+    margin-bottom: 20px;
+}
+
+.featured-latest-post-content .entry-summary p {
+    font-size: 1.05em;
+    line-height: 1.7;
+    color: #444444;
+    margin-bottom: 1.5em;
+}
+
+.featured-latest-post-content .read-more {
+    /* Uses .button-secondary styles from global button CSS.
+       You can add more specific styling here if needed. */
+    font-weight: bold;
+    display: inline-block; /* Ensure it behaves like a button */
+    margin-top: 10px;
+}
+
+/* --------------------
+   Featured YouTube Section Styles
+   -------------------- */
+.featured-youtube-section { padding: 50px 0; background-color: #f9f9f9; }
+.featured-youtube-section .section-title { margin-bottom: 40px; }
+
+.youtube-videos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+.youtube-video-item {
+    background-color: #fff;
+    border: 1px solid #eaeaea;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.youtube-video-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+.youtube-video-item > a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.youtube-video-item > a:hover .video-item-title {
+    color: #dc493a;
+}
+.youtube-video-item img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border-bottom: 1px solid #eaeaea;
+    transition: opacity 0.3s ease;
+}
+.youtube-video-item:hover img {
+    opacity: 0.85;
+}
+.youtube-video-item-content {
+    padding: 20px 25px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+.youtube-video-item .video-item-title { /* font-family, size, weight already set by H3 rule */
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 8px;
+    line-height: 1.35;
+}
+.youtube-video-item .video-item-meta {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8em;
+    color: #888888;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+.youtube-video-item .video-item-excerpt {
+    font-size: 0.95em;
+    color: #555555;
+    line-height: 1.6;
+    margin-top: auto;
+    /* Optional: CSS Line Clamping for description excerpt */
+    /*
+    height: calc(1.6em * 2);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    */
+}
+.youtube-video-item .video-item-excerpt p {
+    margin-bottom: 0;
+}
+
+/* --------------------
+   Post Grid Styles (Homepage & Archives)
+   -------------------- */
+.posts-grid-section { padding: 50px 0; }
+.posts-grid-section .section-title { margin-bottom: 40px; }
+.posts-grid { display: grid; grid-template-columns: 1fr; gap: 35px; }
+.post-grid-item { background-color: #FFFFFF; border: 1px solid #eaeaea; border-radius: 5px; overflow: hidden; display: flex; flex-direction: column; transition: box-shadow 0.3s ease, transform 0.3s ease; }
+.post-grid-item:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.08); transform: translateY(-5px); }
+.post-grid-item .featured-image { display: block; }
+.post-grid-item .featured-image img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid #eaeaea; transition: opacity 0.3s ease; }
+.post-grid-item:hover .featured-image img { opacity: 0.85; }
+.post-grid-item .entry-header { padding: 20px 25px 15px 25px; flex-grow: 1; }
+.post-grid-item .entry-title { /* font-family, size, weight already set by H3 rule */
+    color: #333333; margin-top: 0; margin-bottom: 8px; line-height: 1.35; }
+.post-grid-item .entry-title a { color: #333333; }
+.post-grid-item .entry-title a:hover { color: #dc493a; }
+.post-grid-item .entry-meta { font-family: 'Montserrat', sans-serif; font-size: 0.8em; color: #888888; margin-bottom: 12px; line-height: 1.4; }
+.post-grid-item .entry-meta span { margin-right: 8px; }
+.post-grid-item .entry-excerpt { font-size: 0.95em; color: #555555; line-height: 1.65; padding: 0 25px 25px 25px; }
+/* CSS Line Clamping for post excerpts */
+.post-grid-item .entry-excerpt {
+    height: calc(1.65em * 3); /* line-height * number of lines desired (approx) */
+    overflow: hidden;
+    position: relative;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Number of lines to show */
+    -webkit-box-orient: vertical;
+}
+.post-grid-item .entry-excerpt p { margin-bottom: 0; }
+@supports (-webkit-line-clamp: 3) {
+  .post-grid-item .entry-excerpt::after { display: none; } /* Hide fallback if clamp supported */
+}
+/* Basic fallback for non-webkit if line-clamp is not supported and height trick isn't enough */
+.post-grid-item .entry-excerpt:not(:focus):not(:hover)::after {
+    content: "...";
+    position: absolute;
+    bottom: 0; /* Adjust based on padding of .entry-excerpt */
+    right: 0;  /* Adjust based on padding of .entry-excerpt */
+    background: #FFFFFF; /* Match card background */
+    padding-left: 5px;
+}
+
+
+/* --------------------
+   Single Post & Page Styles
+   -------------------- */
+.single-post .entry-header, .page-main .entry-header { margin-bottom: 30px; text-align: center; }
+.single-post .entry-title { font-size: 2.8em; margin-bottom: 15px; line-height: 1.25; } /* Archivo Black from global */
+.single-post .entry-meta { font-size: 0.9em; color: #777777; margin-bottom: 25px; }
+.single-post .featured-image-single, .page-main .page-featured-image { margin-bottom: 35px; border-radius: 5px; overflow: hidden; }
+.entry-content { font-size: 1.1em; line-height: 1.75; }
+.entry-content p, .entry-content ul, .entry-content ol, .entry-content blockquote, .entry-content .wp-block-image, .entry-content .wp-block-gallery { margin-bottom: 1.8em; }
+.entry-content ul, .entry-content ol { padding-left: 1.5em; }
+.entry-content li { margin-bottom: 0.5em; }
+.entry-content h2, .entry-content h3, .entry-content h4, .entry-content h5, .entry-content h6 { font-family: 'Montserrat', sans-serif; font-weight: 700; margin-top: 2.2em; margin-bottom: 1em; color: #222222; }
+.entry-content h2 { font-size: 1.8em; } .entry-content h3 { font-size: 1.5em; } .entry-content h4 { font-size: 1.3em; }
+.entry-content blockquote { border-left: 4px solid #dc493a; padding-left: 1.8em; margin-left: 0; margin-right: 0; font-style: italic; color: #444444; font-size: 1.05em; }
+.entry-content blockquote p { margin-bottom: 0.5em; }
+.entry-content blockquote cite { display: block; font-size: 0.9em; color: #666; margin-top: 0.5em; font-style: normal; }
+.entry-content img.alignleft { float: left; margin-right: 1.5em; margin-bottom: 1em; }
+.entry-content img.alignright { float: right; margin-left: 1.5em; margin-bottom: 1em; }
+.entry-content img.aligncenter { display: block; margin-left: auto; margin-right: auto; margin-bottom: 1.5em; }
+.entry-content img {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    margin: 1.8em 0; /* Add some vertical spacing */
+    border-radius: 5px; /* Optional: adds slightly rounded corners */
+}
+.wp-caption { max-width: 100%; margin-bottom: 1.5em; } .wp-caption img { margin-bottom: 0; }
+.wp-caption-text { font-size: 0.85em; color: #777; text-align: center; margin-top: 0.5em; font-style: italic; }
+.entry-footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #eaeaea; font-size: 0.9em; color: #777; }
+.entry-footer .tags-links a, .entry-footer .cat-links a { color: #555; border-bottom: 1px dotted #ccc; }
+.entry-footer .tags-links a:hover, .entry-footer .cat-links a:hover { color: #dc493a; border-bottom-style: solid; }
+.edit-link a { color: #dc493a; font-size: 0.9em; }
+
+/* Author Bio Section */
+.author-bio { margin-top: 50px; padding: 30px; background-color: #f9f9f9; border-radius: 5px; display: flex; align-items: flex-start; gap: 25px; }
+.author-bio .avatar { border-radius: 50%; flex-shrink: 0; border: 3px solid #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+.author-bio-content .author-title { margin-top: 0; margin-bottom: 8px; } /* Styled by H3 rules */
+.author-bio-content p.author-description { margin-bottom: 15px; font-size: 0.98em; line-height: 1.6; color: #444; }
+.author-bio-content .author-link { font-weight: bold; font-size: 0.9em; }
+
+/* Related Posts Section */
+.related-posts { margin-top: 60px; padding-top: 40px; border-top: 1px solid #eaeaea; }
+.related-posts .section-title { text-align: center; margin-bottom: 40px; } /* Styled by global H2/.section-title */
+
+/* --------------------
+   Archive & Search Page Header
+   -------------------- */
+.page-header { padding-top: 20px; padding-bottom: 30px; text-align: center; border-bottom: 1px solid #eaeaea; margin-bottom: 50px; }
+.page-header .page-title { margin-bottom: 8px; } /* Archivo Black from global */
+.archive-description { font-family: 'Montserrat', sans-serif; margin-top: 10px; color: #666; font-size: 1.05em; line-height: 1.6; max-width: 700px; margin-left: auto; margin-right: auto; }
+
+/* --------------------
+   Pagination / Posts Navigation
+   -------------------- */
+.pagination, .posts-navigation { margin-top: 50px; text-align: center; font-family: 'Montserrat', sans-serif; }
+.pagination .nav-links .page-numbers, .posts-navigation .nav-links a { display: inline-block; padding: 10px 18px; margin: 0 5px; border: 2px solid #ddd; color: #dc493a; text-decoration: none; border-radius: 5px; font-weight: 600; font-size: 0.95em; transition: all 0.2s ease; }
+.pagination .nav-links .page-numbers.current, .pagination .nav-links .page-numbers:hover, .posts-navigation .nav-links a:hover { background-color: #dc493a; color: #FFFFFF; border-color: #dc493a; }
+
+/* --------------------
+   Comments Section
+   -------------------- */
+.comments-area { margin-top: 60px; padding-top: 40px; border-top: 1px solid #eaeaea; }
+.comments-title, .comment-reply-title { text-align: center; margin-bottom: 40px; } /* Archivo Black from global */
+.comment-list { list-style: none; padding: 0; margin: 0 0 40px 0; }
+.comment-list li.comment, .comment-list li.pingback { padding: 20px 0; border-bottom: 1px solid #f0f0f0; }
+.comment-list li.comment:last-child, .comment-list li.pingback:last-child { border-bottom: none; }
+.comment-list .comment-body { display: flex; gap: 20px; }
+.comment-list .comment-author .avatar { border-radius: 50%; flex-shrink: 0; }
+.comment-list .comment-content-wrapper { flex-grow: 1; }
+.comment-list .fn { font-weight: bold; font-size: 1.1em; color: #333; margin-right: 10px; }
+.comment-list .comment-meta { font-size: 0.85em; color: #888; margin-bottom: 8px; }
+.comment-list .comment-meta a { color: #888; } .comment-list .comment-meta a:hover { color: #dc493a; }
+.comment-list .comment-content p { margin-bottom: 10px; line-height: 1.6; color: #444; }
+.comment-list .reply a { font-size: 0.9em; font-weight: bold; color: #dc493a; text-decoration: none; border: 1px solid #dc493a; padding: 3px 8px; border-radius: 3px; transition: all 0.2s ease; }
+.comment-list .reply a:hover { background-color: #dc493a; color: #fff; }
+
+/* Comment Form Styling */
+.comment-form label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.95em; color: #444; }
+.comment-form input[type="text"], .comment-form input[type="email"], .comment-form input[type="url"], .comment-form textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-family: 'Montserrat', sans-serif; font-size: 1em; margin-bottom: 15px; background-color: #fff; transition: border-color 0.2s ease; }
+.comment-form input[type="text"]:focus, .comment-form input[type="email"]:focus, .comment-form input[type="url"]:focus, .comment-form textarea:focus { border-color: #dc493a; outline: none; box-shadow: 0 0 0 2px rgba(220, 73, 58, 0.2); }
+.comment-form .comment-notes, .comment-form .logged-in-as { font-size: 0.85em; color: #777; margin-bottom: 20px; }
+/* .comment-form .form-submit input[type="submit"] is styled by global button rules below */
+
+/* --------------------
+   Buttons (Global)
+   -------------------- */
+.hero-cta, /* From Hero Section */
+.youtube-channel-link, /* From YouTube Section */
+.form-submit input[type="submit"], /* Comment Form */
+input[type="submit"], /* General submit buttons */
+button, /* General buttons */
+.wp-block-button__link /* Gutenberg button block */ {
+    display: inline-block;
+    background-color: #dc493a;
+    color: #FFFFFF !important; /* Important to override potential conflicts */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1em;
+    text-decoration: none;
+    padding: 12px 28px;
+    border: 2px solid #dc493a;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.hero-cta:hover, .hero-cta:focus,
+.youtube-channel-link:hover, .youtube-channel-link:focus,
+.form-submit input[type="submit"]:hover, .form-submit input[type="submit"]:focus,
+input[type="submit"]:hover, input[type="submit"]:focus,
+button:hover, button:focus,
+.wp-block-button__link:hover, .wp-block-button__link:focus {
+    background-color: #b93b2f;
+    border-color: #b93b2f;
+    color: #FFFFFF !important;
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.button-secondary { /* Optional secondary button style */
+    background-color: #FFFFFF;
+    color: #dc493a !important;
+    border: 2px solid #dc493a;
+}
+.button-secondary:hover, .button-secondary:focus {
+    background-color: #fef0ef;
+    border-color: #b93b2f;
+    color: #b93b2f !important;
+}
+
+
+/* --------------------
+   Footer Styles
+   -------------------- */
+.site-footer { background-color: #282828; color: #bbbbbb; padding: 50px 0; text-align: center; font-family: 'Montserrat', sans-serif; font-size: 0.9em; margin-top: 60px; line-height: 1.6; }
+.site-footer a { color: #FFFFFF; }
+.site-footer a:hover { color: #dc493a; }
+.footer-social-links ul { list-style: none; padding: 0; margin: 0 0 20px 0; }
+.footer-social-links li { display: inline-block; margin: 0 12px; }
+.footer-social-links a { font-size: 1.3em; opacity: 0.8; }
+.footer-social-links a:hover { opacity: 1; }
+.site-info { margin-bottom: 15px; font-size: 0.85em; }
+.site-info .sep { margin: 0 8px; }
+.footer-navigation ul.footer-menu { list-style: none; padding: 0; margin: 0; }
+.footer-navigation ul.footer-menu li { display: inline; margin: 0 10px; font-size: 0.9em; }
+
+
+/* --------------------
+   Responsive Adjustments (Media Queries)
+   -------------------- */
+/* Tablet */
+@media (min-width: 768px) {
+    .container { width: 90%; }
+    .hero-title { font-size: 3.8em; } .hero-subtitle { font-size: 1.4em; }
+    .single-post .entry-title { font-size: 3.5em; } .page-header .page-title { font-size: 3em; }
+    .posts-grid, .youtube-videos-grid, .related-posts .posts-grid { grid-template-columns: repeat(2, 1fr); }
+    .menu-toggle { display: none !important; }
+    .main-navigation { display: flex !important; width: auto !important; order: 0 !important; margin-top: 0 !important; background-color: transparent !important; border-top: none !important; box-shadow: none !important; }
+    .main-navigation ul { flex-direction: row; }
+    .main-navigation li { text-align: left; }
+    .main-navigation a { padding: 15px 0; border-bottom: none; }
+    .main-navigation ul ul.sub-menu { position: absolute; }
+    .sub-menu-toggle { display: none !important; }
+    .main-navigation .menu-item-has-children > a { padding-right: 0 !important; }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    body { font-size: 18px; }
+    .container { width: 85%; max-width: 1280px; }
+    .hero-section { padding: 100px 20px; min-height: 70vh; }
+    .hero-title { font-size: 4.5em; } .hero-subtitle { font-size: 1.5em; }
+    .single-post .entry-title { font-size: 4em; } .page-header .page-title { font-size: 3.5em; }
+    .posts-grid, .youtube-videos-grid, .related-posts .posts-grid { grid-template-columns: repeat(3, 1fr); }
+    .comment-form { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 20px; }
+    .comment-form .comment-form-comment, .comment-form .form-submit, .comment-form .comment-notes, .comment-form .logged-in-as { grid-column: 1 / -1; }
+}
+
+/* Mobile Menu - specific overrides for max-width */
+@media (max-width: 767px) {
+    /* In this media query block, find and replace the rules for nav/toggle */
+
+    /* Hide the full text nav, search, and social icons on mobile */
+    .main-navigation,
+    .header-search,
+    .header-social-icons {
+        display: none;
+    }
+
+    /* Show the hamburger button on mobile */
+    .menu-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* This is the style for the dropdown menu when it's open */
+    .main-navigation.toggled-on {
+        display: block; /* Makes the menu visible when button is clicked */
+        width: 100%;
+        position: absolute; /* Position it relative to the header */
+        top: 100%; /* Start below the header bar */
+        left: 0;
+        background-color: #333333; /* Dark background to match header */
+        box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+        z-index: 1000;
+        /* Reset some desktop styles */
+        margin-left: 0;
+        padding: 10px 0;
+    }
+    /* Styles for the links inside the dropdown mobile menu */
+    .main-navigation.toggled-on ul {
+        flex-direction: column;
+    }
+    .main-navigation.toggled-on li {
+        margin-left: 0;
+        text-align: center;
+    }
+     .main-navigation.toggled-on a {
+        padding: 12px 20px;
+        border-bottom: 1px solid #444444;
+     }
+     .main-navigation.toggled-on li:last-child a {
+        border-bottom: none;
+     }
+}
+/* --------------------
+   Single Post: New Full-Width Hero Header
+   -------------------- */
+   .single .site-content {
+    padding-top: 0;
+}
+
+/* Existing rule for the hero itself */
+.single-post-hero {
+    position: relative;
+    /* ... all other styles remain the same ... */
+}
+.single-post-hero {
+    position: relative;
+    /* This combination makes the element break out of its container to span the full screen width */
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    margin-bottom: 40px; /* Space between hero and the content below */
+    
+    padding: 100px 20px; /* Vertical padding to give it height */
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 450px; /* Minimum height for the hero section */
+}
+
+/* Darkening overlay for text readability */
+.single-post-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.45); /* 45% black overlay. Adjust opacity as needed. */
+    z-index: 1;
+}
+
+/* Container for the text content on top of the overlay */
+.single-post-hero-content {
+    position: relative;
+    z-index: 2;
+    color: #FFFFFF; /* Default text color for this section is white */
+    max-width: 800px;
+}
+
+/* --- FIX FOR TEXT COLOR --- */
+.single-post-hero .entry-title,
+.single-post-hero .entry-title a { /* Target BOTH the h1 and the link inside it */
+    color: #FFFFFF !important; /* Force white color for the title link */
+    text-decoration: none;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Text shadow for readability */
+    margin-bottom: 15px;
+    font-size: 3.5em; /* Adjust size as needed */
+}
+
+.single-post-hero .entry-meta {
+    color: #e0e0e0; /* Light grey for the date, can also be #FFFFFF */
+    font-size: 1em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+/* --- Single Post: Related Posts List Styles (Revised Final) --- */
+.related-posts .section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.related-posts-list {
+    margin-top: 30px;
+    /* max-width: 800px; <<< THIS RULE IS NOW REMOVED to allow full container width */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.related-post-list-item {
+    display: flex;
+    align-items: center;
+    gap: 30px; /* Increased gap for larger images */
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #eaeaea;
+}
+.related-post-list-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.related-post-thumbnail {
+    flex-shrink: 0;
+    width: 250px; /* <<< INCREASED from 200px */
+    height: 156px; /* <<< INCREASED from 125px to maintain 16:10 ratio */
+    display: block;
+}
+.related-post-thumbnail img {
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.related-post-content {
+    flex-grow: 1;
+}
+
+.related-post-content .entry-title {
+    font-size: 1.2em; /* Adjusted for better balance with larger layout */
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    line-height: 1.4;
+}
+.related-post-content .entry-title a {
+    color: #333;
+    text-decoration: none;
+}
+ .related-post-content .entry-title a:hover {
+    color: #dc493a;
+}
+
+.related-post-content .entry-excerpt p {
+    font-size: 0.9em;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
