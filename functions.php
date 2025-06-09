@@ -88,7 +88,7 @@ add_filter( 'excerpt_more', 'allouttravel_custom_excerpt_more' );
 // IMPORTANT: Replace the placeholder value with your new, secure API key.
 // Storing keys in wp-config.php is recommended for live sites.
 if ( ! defined( 'ALLOUTTRAVEL_YOUTUBE_API_KEY' ) ) {
-    define( 'ALLOUTTRAVEL_YOUTUBE_API_KEY', 'AIzaSyDoBEGGsF5Ag6NhJpJe0EsHAKiop9_sUX0' ); // <<< REPLACE THIS!!!
+    define( 'ALLOUTTRAVEL_YOUTUBE_API_KEY', '' ); // <<< REPLACE THIS!!!
 }
 if ( ! defined( 'ALLOUTTRAVEL_YOUTUBE_CHANNEL_ID' ) ) {
     define( 'ALLOUTTRAVEL_YOUTUBE_CHANNEL_ID', 'UC-F6waR5jKim-64ZuL1raPg' ); // Your Channel ID
